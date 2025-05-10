@@ -44,7 +44,7 @@ jobs:
     - name: Put current date into a variable
       run: |
         $NOW=& Get-Date -format yyyyMMdd
-        echo "RUNDATE=$RUNDATE" >> $env:GITHUB_ENV
+        echo "RUNDATE=$NOW" >> $env:GITHUB_ENV
 
     - name: Get build version string
       run: |
