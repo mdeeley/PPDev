@@ -55,5 +55,12 @@ jobs:
     - name: set build date
       run: |
         echo "BUILD_DATE1=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
-        echo "BUILD_DATE1"
-        echo "BUILD_DATE2=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+        echo "$BUILD_DATE1"
+        echo "BUILD_DATE2=$(date +%Y%M%d)" >> ${GITHUB_ENV}
+        echo "$BUILD_DATE2"
+
+    - name: Set current date as env variable
+      run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      
+    - name: Echo current date
+      run: echo $NOW 
