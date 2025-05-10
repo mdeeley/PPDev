@@ -40,22 +40,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         lfs: true
-
-    - name: set build date
+        
+    - name: Put current date into a variable
       run: |
-        echo "BUILD_DATE1=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
-        echo "${{env.Build_Date1}}"
-        echo "BUILD_DATE2=$(date +%Y%M%d)" >> ${GITHUB_ENV}
-        echo "${{env.Build_Date2}}"
+        $NOW=& Get-Date -format yyyy-MM-dd
+        echo "NOW=$NOW" >> $env:GITHUB_ENV
 
-    - name: Set current date as env variable
-      run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-      
-    - name: Echo current date
-      run: echo "${{ toJson(env) }}"
-
-    - name: Echo context
-      run: echo "${{ toJson(github) }}"
-
-    - name: Echo env
-      run: echo "${{ toJson(env) }}"
+    - name: Use variable
+      run: |
+        echo "${{env.NOW}}"
