@@ -41,17 +41,6 @@ jobs:
       with:
         lfs: true
 
-    - name: Power Platform Action Install
-      uses: microsoft/powerplatform-actions/actions-install@v1
-      
-    - name: who-am-i action
-      uses: microsoft/powerplatform-actions/who-am-i@v1
-      with:
-        environment-url: ${{env.ENVIRONMENT_URL}}
-        app-id: ${{env.CLIENT_ID}}
-        client-secret: ${{ secrets.PowerPlatformDevSPN  }}
-        tenant-id: ${{env.TENANT_ID}}
-
     - name: set build date
       run: |
         echo "BUILD_DATE1=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
