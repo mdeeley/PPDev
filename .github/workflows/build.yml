@@ -44,24 +44,12 @@ jobs:
     - name: Put current date into a variable
       run: |
         $NOW=& Get-Date -format yyyyMMdd
-        echo "NOW=$NOW" >> $env:GITHUB_ENV
+        echo "RUNDATE=$RUNDATE" >> $env:GITHUB_ENV
 
-    - name: Use variable
+    - name: Get build version string
       run: |
-        echo "${{env.NOW}}"
+        echo "VERSIONNUMBER=1.0.${{env.RUNDATE}}.${{github.run_number}}" >> $env:GITHUB_ENV
 
-    - name: Get build no
+    - name: output build string
       run: |
-        echo "BUILDVERSION=${{github.run_attempt}}" >> $env:GITHUB_ENV
-
-    - name: A
-      run: |
-        echo "${{env.BUILDVERSION}}"
-        
-    - name: Get build string
-      run: |
-        echo "BUILDNO=1.0.${{env.NOW}}.${{env.BUILDVERSION}}" >> $env:GITHUB_ENV
-
-    - name: B
-      run: |
-        echo "${{env.BUILDNO}}"
+        echo "${{env.VERSIONNUMBER}}"
