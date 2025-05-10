@@ -19,9 +19,7 @@ jobs:
       BUILD_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178
       PRODUCTION_ENVIRONMENT_URL: https://orgaa36f53b.crm11.dynamics.com
       PRODUCTION_CLIENT_ID: 8a720366-704f-4a55-a4e8-725843b134b3
-      PRODUCTION_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178
-      CLIENT_ID: <APP_ID>
-      TENANT_ID: <TENANT_ID>      
+      PRODUCTION_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178  
     secrets:
       envBuildSecret: ${{ secrets.PowerPlatformBuildSPN }}
       envProdSecret: ${{ secrets.PowerPlatformProdSPN }}
