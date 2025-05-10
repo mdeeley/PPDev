@@ -98,5 +98,6 @@ jobs:
       run: |
         git config --global user.name 'Matt Deeley'
         git config --global user.email 'matt.deeley@gmail.com'
-        git commit -am "Automated Build"
+        git add --all
+        git commit -am "Solution updated to ..."
         git push
