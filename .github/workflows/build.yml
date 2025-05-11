@@ -110,7 +110,7 @@ jobs:
     # copy unpacked solution files to root
     - name: copy unpacked solution files
       run: |
-        New-Item "${{ github.event.inputs.solution_folder}}" -ItemType Directory
+        New-Item "${{ github.event.inputs.solution_target_folder}}" -Force -ItemType Directory
         Copy-Item -Path ${{ github.event.inputs.solution_folder}}\* -Destination ${{ github.event.inputs.solution_target_folder}} -Recurse
 
     #- name: branch-solution, prepare it for a PullRequest
