@@ -110,7 +110,7 @@ jobs:
     # copy unpacked solution files to root
     - name: copy unpacked solution files
       run: |
-        Copy-Item -Path ${{ github.event.inputs.solution_target_folder}} -Destination ${{ github.event.inputs.solution_folder}}
+        Copy-Item -Path ${{ github.event.inputs.solution_target_folder}} -Destination ${{ github.event.inputs.solution_folder}} -Recurse -Container
 
     #- name: branch-solution, prepare it for a PullRequest
     #  uses: microsoft/powerplatform-actions/branch-solution@v1
