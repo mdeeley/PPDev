@@ -36,6 +36,7 @@ env:
   envTargetSecret: ${{ secrets.PowerPlatformProdSPN }}
 
 permissions:
+  packages: write
   contents: write
   
 jobs:
@@ -71,21 +72,31 @@ jobs:
         solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
         solution-type: Both
 
-    - name: create release
-      uses: comnoco/create-release@v2
+    # - name: create release
+    #   uses: actions/create-release@v1
+    #   id: create_release
+    #   with:
+    #     draft: false
+    #     prerelease: false
+    #     release_name: ${{env.VERSIONNUMBER}}
+    #     tag_name: ${{env.VERSIONNUMBER}}
+    #     #body_path: CHANGELOG.md
+    #     #body: |
+    #     #    Changes in this Release
+    #     #    - First Change
+    #     #    - Second Change
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create a Release
       id: create_release
-      with:
-        draft: false
-        prerelease: false
-        release_name: ${{env.VERSIONNUMBER}}
-        tag_name: ${{env.VERSIONNUMBER}}
-        #body_path: CHANGELOG.md
-        #body: |
-        #    Changes in this Release
-        #    - First Change
-        #    - Second Change
+      uses: elgohr/Github-Release-Action@v5
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: ${{env.VERSIONNUMBER}}
+        tag: ${{env.VERSIONNUMBER}}
+        prerelease: false
 
     - name: upload unmanaged solution to release
       uses: actions/upload-release-asset@v1
