@@ -57,7 +57,7 @@ jobs:
     - name: extract version number
       id: extract_version
       run: |
-        [xml]$xml = Get-Content ./solutions/$${{ inputs.solution_name }}/Other/Solution.xml
+        [xml]$xml = Get-Content ./solutions/${{ inputs.solution_name }}/Other/Solution.xml
         $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
         echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
       
@@ -97,6 +97,18 @@ jobs:
         title: ${{env.VERSIONNUMBER}}
         tag: ${{env.VERSIONNUMBER}}
         prerelease: false
+
+    # - name: Create a Release
+    #   id: create_release
+    #   uses: "marvinpinto/action-automatic-releases@latest"
+    #   with:
+    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    #     automatic_release_tag: "${{env.VERSIONNUMBER}}"
+    #     title: ${{env.VERSIONNUMBER}}
+    #     prerelease: false
+    #     files: |
+    #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
+    #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
 
     - name: upload unmanaged solution to release
       uses: actions/upload-release-asset@v1
