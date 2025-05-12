@@ -79,7 +79,7 @@ jobs:
         draft: false
         prerelease: false
         release_name: ${{env.VERSIONNUMBER}}
-        tag_name: ${{ github.ref }}
+        tag_name: ${{env.VERSIONNUMBER}}
         #body_path: CHANGELOG.md
         body: |
             Changes in this Release
