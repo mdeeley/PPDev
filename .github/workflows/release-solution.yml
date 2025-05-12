@@ -57,7 +57,7 @@ jobs:
     - name: extract version number
       id: extract_version
       run: |
-        [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/{{ inputs.solution_name }}/Other/Solution.xml
+        [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}/Other/Solution.xml
         $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
         echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
       
@@ -239,7 +239,7 @@ jobs:
   #   - name: extract version number
   #     id: extract_version
   #     run: |
-  #       [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/{{ inputs.solution_name }}/Other/Solution.xml
+  #       [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}/Other/Solution.xml
   #       $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
   #       echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
       
