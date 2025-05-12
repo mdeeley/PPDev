@@ -65,11 +65,17 @@ jobs:
         solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
         solution-type: Both
 
-    - name: Upload the ready to ship solution to GH artifact store
+    - name: Upload unmanaged solution
       uses: actions/upload-artifact@v4
       with:
-        name: Solution
-        path: ${{ inputs.solution_outbound_folder}}/
+        name: ${{ inputs.solution_name }}.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+
+    - name: Upload managed solution
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.solution_name }}_managed.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_managed.zip
 
   # convert-to-managed:
   #   runs-on: windows-latest

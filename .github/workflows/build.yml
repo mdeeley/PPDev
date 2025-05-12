@@ -22,6 +22,10 @@ on:
        description: 'folder name to be created and checked in *do not change*'
        required: true
        default: solutions/
+      solution_outbound_folder:
+       description: 'repacked solution files *do not change*'
+       type: string
+       default: out/solutions/
 env:
 #edit your values here
   ENVIRONMENT_URL: 'https://orgb1369bf8.crm11.dynamics.com'
@@ -113,6 +117,25 @@ jobs:
         New-Item "${{ github.event.inputs.solution_target_folder}}" -Force -ItemType Directory
         Copy-Item -Path ${{ github.event.inputs.solution_folder}}\* -Destination ${{ github.event.inputs.solution_target_folder}} -Recurse -Force
 
+    - name: Pack solutions
+      uses: microsoft/powerplatform-actions/pack-solution@v1
+      with:
+        solution-folder: ${{ inputs.solution_target_folder}}/${{ inputs.solution_name }}
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        solution-type: Both
+
+    - name: Upload unmanaged solution
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.event.inputs.solution_name }}.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ github.event.inputs.solution_name }}.zip
+
+    - name: Upload managed solution
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.event.inputs.solution_name }}_managed.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ github.event.inputs.solution_name }}_managed.zip
+        
     #- name: branch-solution, prepare it for a PullRequest
     #  uses: microsoft/powerplatform-actions/branch-solution@v1
     #  with:
