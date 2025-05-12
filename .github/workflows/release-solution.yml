@@ -80,10 +80,10 @@ jobs:
         release_name: ${{env.VERSIONNUMBER}}
         tag_name: ${{env.VERSIONNUMBER}}
         #body_path: CHANGELOG.md
-        body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+        #body: |
+        #    Changes in this Release
+        #    - First Change
+        #    - Second Change
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
