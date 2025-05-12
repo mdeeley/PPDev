@@ -150,7 +150,7 @@ jobs:
         git config --global user.email 'matt.deeley@gmail.com'
         git add --all ${{ github.event.inputs.solution_target_folder}}
         git commit -am "Solution updated to ${{env.VERSIONNUMBER}}"
-        git tag -a "${{env.VERSIONNUMBER}}" -m "${{env.VERSIONNUMBER}}"
+        # git tag -a "${{env.VERSIONNUMBER}}" -m "${{env.VERSIONNUMBER}}"
           
         git push --follow-tags
 
