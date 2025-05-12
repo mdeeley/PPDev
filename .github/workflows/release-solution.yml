@@ -222,45 +222,45 @@ jobs:
   #       force-overwrite: true
   #       publish-changes: true
 
-  # release-to-target:
-  #   needs: [ create-release ]
-  #   runs-on: windows-latest
-  #   env:
-  #     RUNNER_DEBUG: 1
+  release-to-target:
+    needs: [ create-release ]
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
 
-  #   steps:
-  #   - name: Power Platform Action Install
-  #     uses: microsoft/powerplatform-actions/actions-install@v1
+    steps:
+    - name: Power Platform Action Install
+      uses: microsoft/powerplatform-actions/actions-install@v1
       
-  #   - uses: actions/checkout@v2
-  #     with:
-  #       lfs: true
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
 
-  #   - name: extract version number
-  #     id: extract_version
-  #     run: |
-  #       [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}/Other/Solution.xml
-  #       $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
-  #       echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
+    - name: extract version number
+      id: extract_version
+      run: |
+        [xml]$xml = Get-Content ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}/Other/Solution.xml
+        $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
+        echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
       
-  #   - name: output version number
-  #     run: |
-  #       echo "${{env.VERSIONNUMBER}}"
+    - name: output version number
+      run: |
+        echo "${{env.VERSIONNUMBER}}"
 
-  #   - name: Fetch the ready to ship solution from GH artifact store
-  #     uses: actions/download-artifact@v4
-  #     with:
-  #       name: ${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
-  #       path: ${{ inputs.solution_release_folder}}
+    - name: Fetch the ready to ship solution from GH artifact store
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
+        path: ${{ inputs.solution_release_folder}}
 
-  #   - name: Import managed solution to target env
-  #     uses: microsoft/powerplatform-actions/import-solution@v1
-  #     with:
-  #       environment-url: ${{env.TARGET_ENVIRONMENT_URL}}
-  #       app-id: ${{env.TARGET_CLIENT_ID}}
-  #       client-secret: ${{ secrets.PowerPlatformProdSPN }}
-  #       tenant-id: ${{env.TARGET_TENANT_ID}}
-  #       solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
-  #       force-overwrite: true
-  #       publish-changes: true
+    - name: Import managed solution to target env
+      uses: microsoft/powerplatform-actions/import-solution@v1
+      with:
+        environment-url: ${{env.TARGET_ENVIRONMENT_URL}}
+        app-id: ${{env.TARGET_CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformProdSPN }}
+        tenant-id: ${{env.TARGET_TENANT_ID}}
+        solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
+        force-overwrite: true
+        publish-changes: true
 
