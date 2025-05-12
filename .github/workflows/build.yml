@@ -121,7 +121,7 @@ jobs:
       uses: microsoft/powerplatform-actions/pack-solution@v1
       with:
         solution-folder: ${{ inputs.solution_target_folder}}/${{ inputs.solution_name }}
-        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }})_${{env.VERSIONNUMBER}}.zip
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
         solution-type: Both
 
     - name: Upload unmanaged solution
