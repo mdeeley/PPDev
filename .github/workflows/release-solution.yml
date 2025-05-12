@@ -90,25 +90,26 @@ jobs:
 
     - name: Create a Release
       id: create_release
-      uses: elgohr/Github-Release-Action@v5
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "${{env.VERSIONNUMBER}}"
         title: ${{env.VERSIONNUMBER}}
-        tag: ${{env.VERSIONNUMBER}}
         prerelease: false
+        files: |
+          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
+          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
 
     # - name: Create a Release
     #   id: create_release
-    #   uses: "marvinpinto/action-automatic-releases@latest"
+    #   uses: ncipollo/release-action@v1
     #   with:
-    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-    #     automatic_release_tag: "${{env.VERSIONNUMBER}}"
-    #     title: ${{env.VERSIONNUMBER}}
-    #     prerelease: false
-    #     files: |
+    #     artifacts: |
     #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
     #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
+    #     tag: ${{env.VERSIONNUMBER}}
+    #     name: ${{env.VERSIONNUMBER}}
+    #     #bodyFile: "body.md"
 
     - name: upload unmanaged solution to release
       uses: actions/upload-release-asset@v1
