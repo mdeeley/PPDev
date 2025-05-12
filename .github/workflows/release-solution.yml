@@ -88,28 +88,28 @@ jobs:
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create a Release
-      id: create_release
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "${{env.VERSIONNUMBER}}"
-        title: ${{env.VERSIONNUMBER}}
-        prerelease: false
-        files: |
-          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
-          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
-
     # - name: Create a Release
     #   id: create_release
-    #   uses: ncipollo/release-action@v1
+    #   uses: "marvinpinto/action-automatic-releases@latest"
     #   with:
-    #     artifacts: |
+    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    #     automatic_release_tag: "${{env.VERSIONNUMBER}}"
+    #     title: ${{env.VERSIONNUMBER}}
+    #     prerelease: false
+    #     files: |
     #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
     #       ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
-    #     tag: ${{env.VERSIONNUMBER}}
-    #     name: ${{env.VERSIONNUMBER}}
-    #     #bodyFile: "body.md"
+
+    - name: Create a Release
+      id: create_release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: |
+          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
+          ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
+        tag: ${{env.VERSIONNUMBER}}
+        name: ${{env.VERSIONNUMBER}}
+        #bodyFile: "body.md"
 
     # - name: upload unmanaged solution to release
     #   uses: actions/upload-release-asset@v1
