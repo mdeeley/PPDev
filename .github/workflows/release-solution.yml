@@ -72,7 +72,7 @@ jobs:
         solution-type: Both
 
     - name: create release
-      uses: actions/create-release@v2
+      uses: comnoco/create-release@v2
       id: create_release
       with:
         draft: false
