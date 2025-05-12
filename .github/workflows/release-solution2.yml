@@ -26,29 +26,14 @@ on:
        description: 'folder where the released binaries are going to be hosted *do not change*'
        type: string
        default: out/release
-      TARGET_ENVIRONMENT_URL: 
-        description: 'Production environment url.'
-        type: string
-        required: true
-      TARGET_CLIENT_ID: 
-        description: 'The client id'
-        type: string
-        required: true
-      TARGET_TENANT_ID: 
-        description: 'The tenant id'
-        type: string
-        required: true
-    secrets:
-      envTargetSecret:
-        description: 'The secret value for authentication using SPN'
-        required: true
       
 env:
   solution_name: ALMLab
   TARGET_ENVIRONMENT_URL: https://orgaa36f53b.crm11.dynamics.com
   TARGET_CLIENT_ID: 8a720366-704f-4a55-a4e8-725843b134b3
   TARGET_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178  
-secrets:
+
+  secrets:
   envTargetSecret: ${{ secrets.PowerPlatformProdSPN }}
   
 jobs:
@@ -202,10 +187,10 @@ jobs:
   #   - name: Import solution to prod env
   #     uses: microsoft/powerplatform-actions/import-solution@v1
   #     with:
-  #       environment-url: ${{inputs.PRODUCTION_ENVIRONMENT_URL}}
-  #       app-id: ${{inputs.PRODUCTION_CLIENT_ID}}
-  #       client-secret: ${{ secrets.envProdSecret }}
-  #       tenant-id: ${{inputs.PRODUCTION_TENANT_ID}}
-  #       solution-file: ${{ inputs.solution_release_folder}}/${{ inputs.solution_name }}_managed.zip
+  #       environment-url: ${{env.TARGET_ENVIRONMENT_URL}}
+  #       app-id: ${{env.TARGET_CLIENT_ID}}
+  #       client-secret: ${{ secrets.PowerPlatformProdSPN }}
+  #       tenant-id: ${{env.TARGET_TENANT_ID}}
+  #       solution-file: ${{ inputs.solution_release_folder}}/${{ env.solution_name }}_managed.zip
   #       force-overwrite: true
   #       publish-changes: true
