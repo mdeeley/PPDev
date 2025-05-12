@@ -40,7 +40,7 @@ permissions:
   contents: write
   
 jobs:
-  create-managed-solution:
+  create-release:
     runs-on: windows-latest
 
     env:
@@ -81,11 +81,12 @@ jobs:
         release_name: ${{env.VERSIONNUMBER}}
         tag_name: ${{ github.ref }}
         #body_path: CHANGELOG.md
+        body: |
+            Changes in this Release
+            - First Change
+            - Second Change
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: build artifacts
-      run: make build-linux && make build-windows && make build-darwin
 
     - name: upload unmanaged solution
       uses: actions/upload-release-asset@v1
