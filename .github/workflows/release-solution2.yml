@@ -75,7 +75,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: ${{ steps.version.outputs.version }}
+        release_name: ${{env.VERSIONNUMBER}}
         tag_name: ${{ github.ref }}
         #body_path: CHANGELOG.md
       env:
