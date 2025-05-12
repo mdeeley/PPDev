@@ -57,25 +57,36 @@ jobs:
 
     - name: Power Platform Action Install
       uses: microsoft/powerplatform-actions/actions-install@v1
+
+    - name: extract version number
+      id: extract_version
+      run: |
+        [xml]$xml = Get-Content ./solutions/ALMLab/Other/Solution.xml
+        $SOLUTIONVERSION = $xml.ImportExportXml.SolutionManifest.Version
+        echo "VERSIONNUMBER=$SOLUTIONVERSION" >> $env:GITHUB_ENV
       
+    - name: output version number
+      run: |
+        echo "${{env.VERSIONNUMBER}}"
+
     - name: Pack solution
       uses: microsoft/powerplatform-actions/pack-solution@v1
       with:
         solution-folder: ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}
-        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
         solution-type: Both
 
     - name: Upload unmanaged solution
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.solution_name }}.zip
-        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}.zip
 
     - name: Upload managed solution
       uses: actions/upload-artifact@v4
       with:
         name: ${{ inputs.solution_name }}_managed.zip
-        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_managed.zip
+        path: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}_${{env.VERSIONNUMBER}}_managed.zip
 
   # convert-to-managed:
   #   runs-on: windows-latest
