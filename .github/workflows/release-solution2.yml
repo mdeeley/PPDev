@@ -35,6 +35,9 @@ env:
 
   secrets:
   envTargetSecret: ${{ secrets.PowerPlatformProdSPN }}
+
+permissions:
+  contents: write
   
 jobs:
   create-managed-solution:
@@ -79,7 +82,7 @@ jobs:
         tag_name: ${{ github.ref }}
         #body_path: CHANGELOG.md
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: build artifacts
       run: make build-linux && make build-windows && make build-darwin
