@@ -1,16 +1,16 @@
-name: release-action
-on:
-  release:
-      types: [created]        
-permissions:
-  contents: write
-jobs:
-  Release-solution-ALMLab:
-    uses: ./.github/workflows/release-solution.yml
-    with:
-      solution_name: ALMLab
-      TARGET_ENVIRONMENT_URL: https://orgaa36f53b.crm11.dynamics.com
-      TARGET_CLIENT_ID: 8a720366-704f-4a55-a4e8-725843b134b3
-      TARGET_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178  
-    secrets:
-      envTargetSecret: ${{ secrets.PowerPlatformProdSPN }}
+# name: release-action
+# on:
+#   release:
+#       types: [created]        
+# permissions:
+#   contents: write
+# jobs:
+#   Release-solution-ALMLab:
+#     uses: ./.github/workflows/release-solution.yml
+#     with:
+#       solution_name: ALMLab
+#       TARGET_ENVIRONMENT_URL: https://orgaa36f53b.crm11.dynamics.com
+#       TARGET_CLIENT_ID: 8a720366-704f-4a55-a4e8-725843b134b3
+#       TARGET_TENANT_ID: e54a0000-05b8-4a62-b9bb-5ea5fdbb5178  
+#     secrets:
+#       envTargetSecret: ${{ secrets.PowerPlatformProdSPN }}
